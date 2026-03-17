@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     "AI hotel assistant",
     "villa management",
     "guest experience booking",
-    "Viator hotel integration",
+    "hotel experience booking",
     "WhatsApp business hotel",
     "hotel copilot",
   ],
@@ -32,7 +32,7 @@ export default function RootLayout({
     <html lang="en" className="scroll-smooth">
       <head>
         <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@700&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Syne:wght@800&display=swap"
           rel="stylesheet"
         />
       </head>

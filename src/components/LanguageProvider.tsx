@@ -36,26 +36,42 @@ const langFlags: Record<Locale, { flag: string; label: string }> = {
 
 export function LanguageSwitcher() {
   const { locale, setLocale } = useLanguage();
+  const [open, setOpen] = useState(false);
+
   return (
-    <div className="flex gap-1.5">
-      {(Object.keys(langFlags) as Locale[]).map((lang) => {
-        const { flag, label } = langFlags[lang];
-        const isActive = locale === lang;
-        return (
-          <button
-            key={lang}
-            onClick={() => setLocale(lang)}
-            className={`w-8 h-8 rounded-full flex items-center justify-center text-lg transition-all duration-200 ${
-              isActive
-                ? "ring-2 ring-white/40 scale-110 bg-white/10"
-                : "opacity-50 hover:opacity-90 hover:scale-105 hover:bg-white/5"
-            }`}
-            title={label}
-          >
-            {flag}
-          </button>
-        );
-      })}
+    <div className="relative">
+      <button
+        onClick={() => setOpen(!open)}
+        className="flex items-center gap-1.5 px-3 py-1.5 rounded-full glass hover:bg-white/10 transition-all duration-200"
+      >
+        <span className="text-base">{langFlags[locale].flag}</span>
+        <span className="text-xs font-medium text-white/70">{locale.toUpperCase()}</span>
+        <svg className={`w-3 h-3 text-white/50 transition-transform duration-200 ${open ? "rotate-180" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+      </button>
+
+      {open && (
+        <>
+          <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} />
+          <div className="absolute right-0 top-full mt-2 z-50 rounded-xl glass border border-white/10 py-1 min-w-[140px] shadow-xl">
+            {(Object.keys(langFlags) as Locale[]).map((lang) => {
+              const { flag, label } = langFlags[lang];
+              const isActive = locale === lang;
+              return (
+                <button
+                  key={lang}
+                  onClick={() => { setLocale(lang); setOpen(false); }}
+                  className={`w-full px-3 py-2 flex items-center gap-2.5 text-left transition-colors ${
+                    isActive ? "bg-white/10 text-white" : "text-white/60 hover:bg-white/5 hover:text-white"
+                  }`}
+                >
+                  <span className="text-base">{flag}</span>
+                  <span className="text-sm">{label}</span>
+                </button>
+              );
+            })}
+          </div>
+        </>
+      )}
     </div>
   );
 }
