@@ -139,6 +139,23 @@ body {
   opacity: 0.6;
 }
 
+/* ===== GODIUS LOGO ===== */
+.godius-logo {
+  position: relative;
+  display: inline-block;
+  background: linear-gradient(135deg, #fff 0%, #a78bfa 30%, #7c3aed 50%, #3b82f6 70%, #06b6d4 100%);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: logo-shimmer 3s ease infinite;
+  filter: drop-shadow(0 0 15px rgba(124, 58, 237, 0.35));
+}
+@keyframes logo-shimmer {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
 /* ===== SCROLLBAR ===== */
 ::-webkit-scrollbar { width: 5px; }
 ::-webkit-scrollbar-track { background: transparent; }

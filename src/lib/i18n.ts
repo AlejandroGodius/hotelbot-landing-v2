@@ -33,21 +33,46 @@ export const translations: Record<Locale, Record<string, string>> = {
     "demo.staff.title": "Staff Dashboard",
     "demo.guest.placeholder": "Type a message...",
 
-    // Chat messages
-    "demo.msg.guest1": "Hi! What time is check-in? And is there a spa?",
-    "demo.msg.bot1": "Welcome! Check-in is from 4:00 PM. Yes, we have a luxury spa with sauna, hammam, and treatment rooms. Would you like me to book a treatment for your arrival day?",
-    "demo.msg.guest2": "Yes! A couples massage please. Also, any boat trips you recommend?",
-    "demo.msg.bot2": "I'd love to arrange that! Our couples massage is available at 5:30 PM and 7:00 PM.\n\nFor boat trips, I found these top-rated experiences:\n\n⛵ Sunset Catamaran Cruise — €69/person\n🛥️ Formentera Day Trip + BBQ — €89/person\n\nWhich interests you?",
-    "demo.msg.guest3": "7pm massage, and the catamaran for 2 people",
-    "demo.msg.bot3": "Booked! Here's your summary:\n\n✅ Couples Massage — 7:00 PM\n✅ Sunset Catamaran — 2 pax, tomorrow 5PM\n\n🔗 Pay securely here: [Viator Checkout]\n\nAnything else I can help with?",
+    // Demo: Reception
+    "demo.reception.g1": "Hi! What time is check-in? And is there a spa?",
+    "demo.reception.b1": "Welcome! Check-in is from 4:00 PM. Yes, we have a luxury spa with sauna, hammam, and treatment rooms. Would you like me to book a treatment for your arrival day?",
+    "demo.reception.g2": "Yes! A couples massage at 7pm please",
+    "demo.reception.b2": "Done! Your couples massage is confirmed for 7:00 PM.\n\nI'll have everything ready for your arrival. Is there anything else you need?",
+    "demo.reception.n1": "Guest inquiry answered",
+    "demo.reception.n1d": "Check-in info + spa details · Room 204",
+    "demo.reception.n2": "Spa booking confirmed",
+    "demo.reception.n2d": "Couples Massage · 7:00 PM · €180",
 
-    // Staff notifications
-    "demo.staff.notif1": "New booking: Couples Massage",
-    "demo.staff.notif1.detail": "Guest: Room 204 · 7:00 PM · €180",
-    "demo.staff.notif2": "Experience booked via Viator",
-    "demo.staff.notif2.detail": "Sunset Catamaran · 2 pax · Commission: €11.04",
-    "demo.staff.notif3": "Revenue generated",
-    "demo.staff.notif3.detail": "Total: €318 · AI-assisted booking",
+    // Demo: Concierge
+    "demo.concierge.g1": "Any boat trips or excursions you recommend?",
+    "demo.concierge.b1": "Great question! Here are today's top-rated experiences:\n\n⛵ Sunset Catamaran Cruise — €69/person\n🛥️ Formentera Day Trip + BBQ — €89/person\n🤿 Snorkeling & Sea Caves — €55/person\n\nWhich interests you?",
+    "demo.concierge.g2": "The catamaran for 2 people, tomorrow at 5pm",
+    "demo.concierge.b2": "Booked! Here's your summary:\n\n✅ Sunset Catamaran — 2 pax, tomorrow 5PM\n💰 Total: €138\n\n🔗 Pay securely here: [Checkout Link]\n\nYou're going to love it!",
+    "demo.concierge.n1": "Experience booked",
+    "demo.concierge.n1d": "Sunset Catamaran · 2 pax · Tomorrow 5PM",
+    "demo.concierge.n2": "Commission earned",
+    "demo.concierge.n2d": "€138 booking · Commission: €11.04",
+
+    // Demo: Upselling
+    "demo.upselling.b1": "Hi! I noticed you're checking out tomorrow. Would you like a late checkout until 2PM? We also have a special dinner offer tonight at our rooftop restaurant 🌅",
+    "demo.upselling.g1": "How much is late checkout?",
+    "demo.upselling.b2": "Late checkout until 2PM is just €35. And tonight's rooftop dinner is a 3-course Mediterranean menu for €65/person with live music.\n\nWant me to book either or both?",
+    "demo.upselling.n1": "Upsell offer sent",
+    "demo.upselling.n1d": "Late checkout + rooftop dinner · Room 204",
+    "demo.upselling.g2": "Both! Late checkout and dinner for 2",
+    "demo.upselling.b3": "Excellent choice! All confirmed:\n\n✅ Late checkout — until 2:00 PM\n✅ Rooftop dinner — 2 pax, 8:30 PM tonight\n\nTotal: €165. Added to your room bill. Enjoy your last evening! 🎉",
+    "demo.upselling.n2": "Upsell converted",
+    "demo.upselling.n2d": "Late checkout + dinner · Revenue: €165",
+
+    // Demo: Housekeeping
+    "demo.housekeeping.g1": "Hi, could we get extra towels and the room cleaned?",
+    "demo.housekeeping.b1": "Of course! I'll send extra towels and schedule a room cleaning right away.\n\nExpected time: within 15 minutes.\nWould you also like fresh toiletries or minibar restocking?",
+    "demo.housekeeping.g2": "Yes, toiletries please. Also the AC makes a weird noise",
+    "demo.housekeeping.b2": "I've added toiletries to the order and created an urgent maintenance ticket for your AC.\n\n📋 Your requests:\n✅ Extra towels — 15 min\n✅ Room cleaning — 15 min\n✅ Toiletries — 15 min\n🔧 AC check — maintenance notified (priority: high)",
+    "demo.housekeeping.n1": "Maintenance ticket",
+    "demo.housekeeping.n1d": "AC noise · Room 204 · Priority: HIGH",
+    "demo.housekeeping.n2": "Housekeeping dispatched",
+    "demo.housekeeping.n2d": "Towels + cleaning + toiletries · Room 204",
 
     // Agents
     "agents.title": "6 AI Agents, One Platform",
@@ -124,7 +149,7 @@ export const translations: Record<Locale, Record<string, string>> = {
     "pricing.pro.f7": "Real-time dashboard & analytics",
     "pricing.pro.f8": "Staff handoff & task management",
 
-    "pricing.cta": "Start Free Trial",
+    "pricing.cta": "Get Started",
     "pricing.cta.free": "Get Free Concierge",
 
     // FAQ
@@ -234,19 +259,39 @@ export const translations: Record<Locale, Record<string, string>> = {
     "demo.staff.title": "Panel del Staff",
     "demo.guest.placeholder": "Escribe un mensaje...",
 
-    "demo.msg.guest1": "¡Hola! ¿A qué hora es el check-in? ¿Tienen spa?",
-    "demo.msg.bot1": "¡Bienvenido! El check-in es desde las 4:00 PM. Sí, contamos con un spa de lujo con sauna, hammam y salas de tratamiento. ¿Le gustaría reservar un tratamiento para su día de llegada?",
-    "demo.msg.guest2": "¡Sí! Un masaje en pareja por favor. ¿Algún paseo en barco que recomienden?",
-    "demo.msg.bot2": "¡Me encantaría organizarlo! Nuestro masaje en pareja está disponible a las 5:30 PM y 7:00 PM.\n\nPara paseos en barco, encontré estas experiencias top:\n\n⛵ Crucero Catamarán al Atardecer — €69/persona\n🛥️ Excursión a Formentera + BBQ — €89/persona\n\n¿Cuál le interesa?",
-    "demo.msg.guest3": "Masaje a las 7pm, y el catamarán para 2",
-    "demo.msg.bot3": "¡Reservado! Aquí su resumen:\n\n✅ Masaje en Pareja — 7:00 PM\n✅ Catamarán al Atardecer — 2 pax, mañana 5PM\n\n🔗 Pague de forma segura aquí: [Viator Checkout]\n\n¿Algo más en lo que pueda ayudar?",
-
-    "demo.staff.notif1": "Nueva reserva: Masaje en Pareja",
-    "demo.staff.notif1.detail": "Huésped: Hab. 204 · 7:00 PM · €180",
-    "demo.staff.notif2": "Experiencia reservada vía Viator",
-    "demo.staff.notif2.detail": "Catamarán al Atardecer · 2 pax · Comisión: €11.04",
-    "demo.staff.notif3": "Ingreso generado",
-    "demo.staff.notif3.detail": "Total: €318 · Reserva asistida por IA",
+    "demo.reception.g1": "\u00a1Hola! \u00bfA qu\u00e9 hora es el check-in? \u00bfTienen spa?",
+    "demo.reception.b1": "\u00a1Bienvenido! El check-in es desde las 4:00 PM. S\u00ed, contamos con un spa de lujo con sauna, hammam y salas de tratamiento. \u00bfLe gustar\u00eda reservar un tratamiento para su llegada?",
+    "demo.reception.g2": "\u00a1S\u00ed! Un masaje en pareja a las 7pm",
+    "demo.reception.b2": "\u00a1Listo! Su masaje en pareja est\u00e1 confirmado para las 7:00 PM.\n\nTendremos todo preparado para su llegada. \u00bfNecesita algo m\u00e1s?",
+    "demo.reception.n1": "Consulta respondida",
+    "demo.reception.n1d": "Info check-in + spa \u00b7 Hab. 204",
+    "demo.reception.n2": "Reserva spa confirmada",
+    "demo.reception.n2d": "Masaje en Pareja \u00b7 7:00 PM \u00b7 \u20ac180",
+    "demo.concierge.g1": "\u00bfAlg\u00fan paseo en barco o excursi\u00f3n que recomienden?",
+    "demo.concierge.b1": "\u00a1Gran pregunta! Estas son las mejores experiencias de hoy:\n\n\u26f5 Crucero Catamar\u00e1n al Atardecer \u2014 \u20ac69/persona\n\ud83d\udea5 Excursi\u00f3n a Formentera + BBQ \u2014 \u20ac89/persona\n\ud83e\udd3f Snorkel y Cuevas Marinas \u2014 \u20ac55/persona\n\n\u00bfCu\u00e1l le interesa?",
+    "demo.concierge.g2": "El catamar\u00e1n para 2, ma\u00f1ana a las 5pm",
+    "demo.concierge.b2": "\u00a1Reservado! Su resumen:\n\n\u2705 Catamar\u00e1n al Atardecer \u2014 2 pax, ma\u00f1ana 5PM\n\ud83d\udcb0 Total: \u20ac138\n\n\ud83d\udd17 Pague de forma segura: [Link de Pago]\n\n\u00a1Lo va a disfrutar!",
+    "demo.concierge.n1": "Experiencia reservada",
+    "demo.concierge.n1d": "Catamar\u00e1n al Atardecer \u00b7 2 pax \u00b7 Ma\u00f1ana 5PM",
+    "demo.concierge.n2": "Comisi\u00f3n ganada",
+    "demo.concierge.n2d": "Reserva \u20ac138 \u00b7 Comisi\u00f3n: \u20ac11.04",
+    "demo.upselling.b1": "\u00a1Hola! Not\u00e9 que hacen checkout ma\u00f1ana. \u00bfLe gustar\u00eda late checkout hasta las 2PM? Tambi\u00e9n tenemos una oferta especial de cena en nuestra terraza esta noche \ud83c\udf05",
+    "demo.upselling.g1": "\u00bfCu\u00e1nto cuesta el late checkout?",
+    "demo.upselling.b2": "Late checkout hasta las 2PM son solo \u20ac35. Y la cena en terraza es un men\u00fa mediterr\u00e1neo de 3 platos por \u20ac65/persona con m\u00fasica en vivo.\n\n\u00bfQuiere que reserve alguno o ambos?",
+    "demo.upselling.n1": "Oferta upsell enviada",
+    "demo.upselling.n1d": "Late checkout + cena terraza \u00b7 Hab. 204",
+    "demo.upselling.g2": "\u00a1Los dos! Late checkout y cena para 2",
+    "demo.upselling.b3": "\u00a1Excelente elecci\u00f3n! Todo confirmado:\n\n\u2705 Late checkout \u2014 hasta 2:00 PM\n\u2705 Cena en terraza \u2014 2 pax, 8:30 PM\n\nTotal: \u20ac165. A\u00f1adido a su cuenta. \u00a1Disfrute su \u00faltima noche! \ud83c\udf89",
+    "demo.upselling.n2": "Upsell convertido",
+    "demo.upselling.n2d": "Late checkout + cena \u00b7 Ingreso: \u20ac165",
+    "demo.housekeeping.g1": "Hola, \u00bfpodr\u00edan traer toallas extra y limpiar la habitaci\u00f3n?",
+    "demo.housekeeping.b1": "\u00a1Por supuesto! Enviar\u00e9 toallas extra y programar\u00e9 limpieza de inmediato.\n\nTiempo estimado: 15 minutos.\n\u00bfDesea tambi\u00e9n art\u00edculos de ba\u00f1o o reposici\u00f3n del minibar?",
+    "demo.housekeeping.g2": "S\u00ed, art\u00edculos de ba\u00f1o. Y el aire acondicionado hace un ruido raro",
+    "demo.housekeeping.b2": "He a\u00f1adido art\u00edculos de ba\u00f1o y creado un ticket urgente de mantenimiento para su AC.\n\n\ud83d\udccb Sus solicitudes:\n\u2705 Toallas extra \u2014 15 min\n\u2705 Limpieza \u2014 15 min\n\u2705 Art\u00edculos de ba\u00f1o \u2014 15 min\n\ud83d\udd27 Revisi\u00f3n AC \u2014 mantenimiento notificado (prioridad: alta)",
+    "demo.housekeeping.n1": "Ticket mantenimiento",
+    "demo.housekeeping.n1d": "Ruido AC \u00b7 Hab. 204 \u00b7 Prioridad: ALTA",
+    "demo.housekeeping.n2": "Limpieza despachada",
+    "demo.housekeeping.n2d": "Toallas + limpieza + ba\u00f1o \u00b7 Hab. 204",
 
     "agents.title": "6 Agentes IA, Una Plataforma",
     "agents.subtitle": "Cada agente está especializado en un rol. Juntos, son el equipo de operaciones IA completo de tu hotel.",
@@ -319,7 +364,7 @@ export const translations: Record<Locale, Record<string, string>> = {
     "pricing.pro.f7": "Dashboard y analíticas en tiempo real",
     "pricing.pro.f8": "Transferencia a staff y gestión de tareas",
 
-    "pricing.cta": "Empezar Prueba Gratis",
+    "pricing.cta": "Empezar Ahora",
     "pricing.cta.free": "Obtener Concierge Gratis",
 
     "faq.title": "Preguntas Frecuentes",
@@ -424,19 +469,7 @@ export const translations: Record<Locale, Record<string, string>> = {
     "demo.guest.title": "Conversation Client",
     "demo.staff.title": "Tableau de Bord",
     "demo.guest.placeholder": "Tapez un message...",
-    "demo.msg.guest1": "Bonjour ! À quelle heure est le check-in ? Vous avez un spa ?",
-    "demo.msg.bot1": "Bienvenue ! Le check-in est à partir de 16h00. Oui, nous avons un spa de luxe. Souhaitez-vous réserver un soin ?",
-    "demo.msg.guest2": "Oui ! Un massage en couple. Des excursions en bateau à recommander ?",
-    "demo.msg.bot2": "Avec plaisir ! Massage en couple à 17h30 ou 19h00.\n\nPour les excursions en bateau :\n\n⛵ Croisière Catamaran au Coucher du Soleil — 69€/pers\n🛥️ Journée à Formentera + BBQ — 89€/pers\n\nQuel vous intéresse ?",
-    "demo.msg.guest3": "19h massage, et le catamaran pour 2",
-    "demo.msg.bot3": "Réservé !\n\n✅ Massage en Couple — 19h00\n✅ Catamaran au Coucher du Soleil — 2 pers, demain 17h\n\n🔗 Payez ici : [Viator Checkout]\n\nAutre chose ?",
-
-    "demo.staff.notif1": "Nouvelle réservation : Massage Couple",
-    "demo.staff.notif1.detail": "Client : Ch. 204 · 19h00 · 180€",
-    "demo.staff.notif2": "Expérience réservée via Viator",
-    "demo.staff.notif2.detail": "Catamaran · 2 pers · Commission : 11,04€",
-    "demo.staff.notif3": "Revenu généré",
-    "demo.staff.notif3.detail": "Total : 318€ · Réservation assistée par IA",
+    // Demo keys fall back to English — only core UI translated
 
     "agents.title": "6 Agents IA, Une Plateforme",
     "agents.subtitle": "Chaque agent est spécialisé. Ensemble, ils forment l'équipe IA complète de votre hôtel.",
@@ -509,7 +542,7 @@ export const translations: Record<Locale, Record<string, string>> = {
     "pricing.pro.f7": "Tableau de bord et analytiques en temps réel",
     "pricing.pro.f8": "Transfert au staff et gestion des tâches",
 
-    "pricing.cta": "Essai Gratuit",
+    "pricing.cta": "Commencer",
     "pricing.cta.free": "Obtenir Concierge Gratuit",
 
     "faq.title": "Questions Fréquentes",
@@ -614,19 +647,7 @@ export const translations: Record<Locale, Record<string, string>> = {
     "demo.guest.title": "Gästegespräch",
     "demo.staff.title": "Staff-Dashboard",
     "demo.guest.placeholder": "Nachricht eingeben...",
-    "demo.msg.guest1": "Hallo! Wann ist der Check-in? Gibt es ein Spa?",
-    "demo.msg.bot1": "Willkommen! Check-in ab 16:00 Uhr. Ja, wir haben ein Luxus-Spa. Möchten Sie eine Behandlung buchen?",
-    "demo.msg.guest2": "Ja! Eine Paarmassage bitte. Bootsausflüge zu empfehlen?",
-    "demo.msg.bot2": "Gerne! Paarmassage um 17:30 oder 19:00 Uhr.\n\nFür Bootsausflüge:\n\n⛵ Katamaran-Sonnenuntergangsfahrt — 69€/Pers\n🛥️ Formentera-Tagesausflug + BBQ — 89€/Pers\n\nWas interessiert Sie?",
-    "demo.msg.guest3": "19 Uhr Massage, und den Katamaran für 2",
-    "demo.msg.bot3": "Gebucht!\n\n✅ Paarmassage — 19:00 Uhr\n✅ Katamaran — 2 Pers, morgen 17:00\n\n🔗 Sicher bezahlen: [Viator Checkout]\n\nNoch etwas?",
-
-    "demo.staff.notif1": "Neue Buchung: Paarmassage",
-    "demo.staff.notif1.detail": "Gast: Zi. 204 · 19:00 · 180€",
-    "demo.staff.notif2": "Erlebnis gebucht über Viator",
-    "demo.staff.notif2.detail": "Katamaran · 2 Pers · Provision: 11,04€",
-    "demo.staff.notif3": "Umsatz generiert",
-    "demo.staff.notif3.detail": "Gesamt: 318€ · KI-gestützte Buchung",
+    // Demo keys fall back to English — only core UI translated
 
     "agents.title": "6 KI-Agenten, Eine Plattform",
     "agents.subtitle": "Jeder Agent ist spezialisiert. Zusammen bilden sie das komplette KI-Operations-Team Ihres Hotels.",
@@ -699,7 +720,7 @@ export const translations: Record<Locale, Record<string, string>> = {
     "pricing.pro.f7": "Echtzeit-Dashboard und Analytik",
     "pricing.pro.f8": "Staff-Übergabe und Aufgabenmanagement",
 
-    "pricing.cta": "Kostenlos Testen",
+    "pricing.cta": "Loslegen",
     "pricing.cta.free": "Kostenlosen Concierge Erhalten",
 
     "faq.title": "Häufig Gestellte Fragen",

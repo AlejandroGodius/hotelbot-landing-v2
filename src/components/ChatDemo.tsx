@@ -1,31 +1,36 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Bot, User, CheckCircle2, DollarSign, Car, Sparkles, Wifi } from "lucide-react";
+import { Bot, User, CheckCircle2, DollarSign, Car, Sparkles, Wifi, Bed, UtensilsCrossed, Wrench, ShoppingBag } from "lucide-react";
 import { useLanguage } from "./LanguageProvider";
 
 type Message = { id: number; type: "guest" | "bot"; text: string; typing?: boolean; label?: string };
 type Notification = { id: number; icon: typeof CheckCircle2; title: string; detail: string; color: string };
 
-export default function ChatDemo() {
-  const { t } = useLanguage();
+type DemoTab = "reception" | "concierge" | "upselling" | "housekeeping";
+
+const tabs: { key: DemoTab; icon: typeof Bed; color: string; labelKey: string }[] = [
+  { key: "reception", icon: Bed, color: "text-amber-400", labelKey: "agents.reception.name" },
+  { key: "concierge", icon: Car, color: "text-primary-light", labelKey: "agents.concierge.name" },
+  { key: "upselling", icon: ShoppingBag, color: "text-pink-400", labelKey: "agents.upselling.name" },
+  { key: "housekeeping", icon: Wrench, color: "text-emerald-400", labelKey: "agents.housekeeping.name" },
+];
+
+function useDemoSequence(isVisible: boolean, activeTab: DemoTab, t: (key: string) => string) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [notifications, setNotifications] = useState<Notification[]>([]);
-  const [isVisible, setIsVisible] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
-  const chatRef = useRef<HTMLDivElement>(null);
+  const timersRef = useRef<ReturnType<typeof setTimeout>[]>([]);
+
+  const reset = useCallback(() => {
+    timersRef.current.forEach(clearTimeout);
+    timersRef.current = [];
+    setMessages([]);
+    setNotifications([]);
+  }, []);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting && !isVisible) setIsVisible(true); },
-      { threshold: 0.2 }
-    );
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, [isVisible]);
-
-  useEffect(() => {
+    reset();
     if (!isVisible) return;
 
     const addMsg = (type: "guest" | "bot", text: string, typing = false, label?: string) =>
@@ -43,27 +48,92 @@ export default function ChatDemo() {
     const addNotif = (icon: typeof CheckCircle2, title: string, detail: string, color: string) =>
       setNotifications((prev) => [...prev, { id: Date.now() + Math.random(), icon, title, detail, color }]);
 
-    const seq = [
-      { d: 600, fn: () => addMsg("guest", t("demo.msg.guest1")) },
-      { d: 1800, fn: () => addMsg("bot", "", true, "AI Reception") },
-      { d: 3200, fn: () => replaceBot(t("demo.msg.bot1"), "AI Reception") },
-      { d: 5200, fn: () => addMsg("guest", t("demo.msg.guest2")) },
-      { d: 6400, fn: () => addMsg("bot", "", true, "AI Concierge") },
-      { d: 8200, fn: () => replaceBot(t("demo.msg.bot2"), "AI Concierge") },
-      { d: 10500, fn: () => addMsg("guest", t("demo.msg.guest3")) },
-      { d: 11500, fn: () => addMsg("bot", "", true, "AI Concierge") },
-      { d: 13000, fn: () => { replaceBot(t("demo.msg.bot3"), "AI Concierge"); addNotif(CheckCircle2, t("demo.staff.notif1"), t("demo.staff.notif1.detail"), "text-green-400"); } },
-      { d: 14500, fn: () => addNotif(Car, t("demo.staff.notif2"), t("demo.staff.notif2.detail"), "text-blue-400") },
-      { d: 16000, fn: () => addNotif(DollarSign, t("demo.staff.notif3"), t("demo.staff.notif3.detail"), "text-amber-400") },
-    ];
+    let seq: { d: number; fn: () => void }[] = [];
 
-    const timers = seq.map((s) => setTimeout(s.fn, s.d));
-    return () => timers.forEach(clearTimeout);
-  }, [isVisible, t]);
+    if (activeTab === "reception") {
+      seq = [
+        { d: 800, fn: () => addMsg("guest", t("demo.reception.g1")) },
+        { d: 3000, fn: () => addMsg("bot", "", true, "AI Reception") },
+        { d: 5500, fn: () => replaceBot(t("demo.reception.b1"), "AI Reception") },
+        { d: 8500, fn: () => addMsg("guest", t("demo.reception.g2")) },
+        { d: 10500, fn: () => addMsg("bot", "", true, "AI Reception") },
+        { d: 13000, fn: () => replaceBot(t("demo.reception.b2"), "AI Reception") },
+        { d: 15000, fn: () => addNotif(CheckCircle2, t("demo.reception.n1"), t("demo.reception.n1d"), "text-amber-400") },
+        { d: 17500, fn: () => addNotif(Bed, t("demo.reception.n2"), t("demo.reception.n2d"), "text-green-400") },
+      ];
+    } else if (activeTab === "concierge") {
+      seq = [
+        { d: 800, fn: () => addMsg("guest", t("demo.concierge.g1")) },
+        { d: 3000, fn: () => addMsg("bot", "", true, "AI Concierge") },
+        { d: 5500, fn: () => replaceBot(t("demo.concierge.b1"), "AI Concierge") },
+        { d: 8500, fn: () => addMsg("guest", t("demo.concierge.g2")) },
+        { d: 10500, fn: () => addMsg("bot", "", true, "AI Concierge") },
+        { d: 13500, fn: () => { replaceBot(t("demo.concierge.b2"), "AI Concierge"); addNotif(Car, t("demo.concierge.n1"), t("demo.concierge.n1d"), "text-blue-400"); } },
+        { d: 16000, fn: () => addNotif(DollarSign, t("demo.concierge.n2"), t("demo.concierge.n2d"), "text-amber-400") },
+      ];
+    } else if (activeTab === "upselling") {
+      seq = [
+        { d: 800, fn: () => addMsg("bot", "", true, "AI Upselling") },
+        { d: 3000, fn: () => replaceBot(t("demo.upselling.b1"), "AI Upselling") },
+        { d: 6000, fn: () => addMsg("guest", t("demo.upselling.g1")) },
+        { d: 8000, fn: () => addMsg("bot", "", true, "AI Upselling") },
+        { d: 10500, fn: () => { replaceBot(t("demo.upselling.b2"), "AI Upselling"); addNotif(ShoppingBag, t("demo.upselling.n1"), t("demo.upselling.n1d"), "text-pink-400"); } },
+        { d: 13500, fn: () => addMsg("guest", t("demo.upselling.g2")) },
+        { d: 15500, fn: () => addMsg("bot", "", true, "AI Upselling") },
+        { d: 18000, fn: () => { replaceBot(t("demo.upselling.b3"), "AI Upselling"); addNotif(DollarSign, t("demo.upselling.n2"), t("demo.upselling.n2d"), "text-amber-400"); } },
+      ];
+    } else if (activeTab === "housekeeping") {
+      seq = [
+        { d: 800, fn: () => addMsg("guest", t("demo.housekeeping.g1")) },
+        { d: 3000, fn: () => addMsg("bot", "", true, "AI Housekeeping") },
+        { d: 5500, fn: () => replaceBot(t("demo.housekeeping.b1"), "AI Housekeeping") },
+        { d: 8000, fn: () => addMsg("guest", t("demo.housekeeping.g2")) },
+        { d: 10000, fn: () => addMsg("bot", "", true, "AI Housekeeping") },
+        { d: 12500, fn: () => { replaceBot(t("demo.housekeeping.b2"), "AI Housekeeping"); addNotif(Wrench, t("demo.housekeeping.n1"), t("demo.housekeeping.n1d"), "text-emerald-400"); } },
+        { d: 15000, fn: () => addNotif(CheckCircle2, t("demo.housekeeping.n2"), t("demo.housekeeping.n2d"), "text-green-400") },
+      ];
+    }
+
+    timersRef.current = seq.map((s) => setTimeout(s.fn, s.d));
+    return () => { timersRef.current.forEach(clearTimeout); };
+  }, [isVisible, activeTab, t, reset]);
+
+  return { messages, notifications, reset };
+}
+
+export default function ChatDemo() {
+  const { t } = useLanguage();
+  const [activeTab, setActiveTab] = useState<DemoTab>("reception");
+  const [isVisible, setIsVisible] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+  const chatRef = useRef<HTMLDivElement>(null);
+
+  const { messages, notifications } = useDemoSequence(isVisible, activeTab, t);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) setIsVisible(true); },
+      { threshold: 0.15 }
+    );
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     if (chatRef.current) chatRef.current.scrollTop = chatRef.current.scrollHeight;
   }, [messages]);
+
+  const handleTabChange = (tab: DemoTab) => {
+    setActiveTab(tab);
+    setIsVisible(true);
+  };
+
+  const agentColors: Record<string, string> = {
+    "AI Reception": "text-amber-400",
+    "AI Concierge": "text-primary-light",
+    "AI Upselling": "text-pink-400",
+    "AI Housekeeping": "text-emerald-400",
+  };
 
   return (
     <section id="demo" ref={ref} className="py-28 relative">
@@ -72,7 +142,7 @@ export default function ChatDemo() {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-20"
+          className="text-center mb-12"
         >
           <motion.span
             initial={{ opacity: 0, scale: 0.8 }}
@@ -88,6 +158,34 @@ export default function ChatDemo() {
           <p className="text-lg text-text-muted max-w-2xl mx-auto">{t("demo.subtitle")}</p>
         </motion.div>
 
+        {/* Agent Tabs */}
+        <div className="flex justify-center mb-10">
+          <div className="inline-flex gap-2 p-1.5 rounded-2xl glass">
+            {tabs.map((tab) => {
+              const isActive = activeTab === tab.key;
+              return (
+                <button
+                  key={tab.key}
+                  onClick={() => handleTabChange(tab.key)}
+                  className={`relative flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 ${
+                    isActive ? "text-white" : "text-white/50 hover:text-white/80"
+                  }`}
+                >
+                  {isActive && (
+                    <motion.div
+                      layoutId="demo-tab-bg"
+                      className="absolute inset-0 rounded-xl bg-white/10 border border-white/10"
+                      transition={{ type: "spring", bounce: 0.2, duration: 0.4 }}
+                    />
+                  )}
+                  <tab.icon className={`w-4 h-4 relative z-10 ${isActive ? tab.color : ""}`} />
+                  <span className="relative z-10 hidden sm:inline">{t(tab.labelKey)}</span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
         {/* Phone + Dashboard layout */}
         <div className="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto items-start">
           {/* WhatsApp Phone Mockup */}
@@ -98,15 +196,12 @@ export default function ChatDemo() {
             transition={{ type: "spring", damping: 20 }}
             className="relative mx-auto max-w-[380px] w-full"
           >
-            {/* Phone frame */}
             <div className="rounded-[2.5rem] bg-gradient-to-b from-gray-700 to-gray-900 p-[3px] shadow-2xl shadow-primary/20">
               <div className="rounded-[2.3rem] bg-surface-light overflow-hidden">
-                {/* Notch */}
                 <div className="flex justify-center pt-2 pb-1">
                   <div className="w-24 h-5 rounded-full bg-black/80" />
                 </div>
 
-                {/* WhatsApp header */}
                 <div className="px-4 py-3 bg-green-800/30 flex items-center gap-3">
                   <div className="w-9 h-9 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center">
                     <Bot className="w-5 h-5 text-white" />
@@ -120,7 +215,6 @@ export default function ChatDemo() {
                   </div>
                 </div>
 
-                {/* Chat messages */}
                 <div ref={chatRef} className="p-3 h-[440px] overflow-y-auto space-y-2.5 bg-[#0a0f14]">
                   <AnimatePresence mode="popLayout">
                     {messages.map((msg) => (
@@ -148,8 +242,8 @@ export default function ChatDemo() {
                             <>
                               {msg.type === "bot" && (
                                 <div className="flex items-center gap-1.5 mb-1.5">
-                                  <Sparkles className={`w-3 h-3 ${msg.label === "AI Reception" ? "text-amber-400" : "text-primary-light"}`} />
-                                  <span className={`text-[10px] font-bold uppercase tracking-wider ${msg.label === "AI Reception" ? "text-amber-400" : "text-primary-light"}`}>{msg.label || "AI Concierge"}</span>
+                                  <Sparkles className={`w-3 h-3 ${agentColors[msg.label || ""] || "text-primary-light"}`} />
+                                  <span className={`text-[10px] font-bold uppercase tracking-wider ${agentColors[msg.label || ""] || "text-primary-light"}`}>{msg.label}</span>
                                 </div>
                               )}
                               {msg.text}
@@ -161,7 +255,6 @@ export default function ChatDemo() {
                   </AnimatePresence>
                 </div>
 
-                {/* Input bar */}
                 <div className="px-3 py-3 bg-[#0a0f14] border-t border-white/5">
                   <div className="flex items-center gap-2 rounded-full bg-white/5 px-4 py-2.5">
                     <span className="text-xs text-white/25 flex-1">{t("demo.guest.placeholder")}</span>
@@ -171,14 +264,12 @@ export default function ChatDemo() {
                   </div>
                 </div>
 
-                {/* Home bar */}
                 <div className="flex justify-center py-2">
                   <div className="w-28 h-1 rounded-full bg-white/20" />
                 </div>
               </div>
             </div>
 
-            {/* Glow behind phone */}
             <div className="absolute -inset-8 bg-gradient-to-br from-primary/20 to-accent/20 blur-[60px] rounded-full -z-10" />
           </motion.div>
 
@@ -191,7 +282,6 @@ export default function ChatDemo() {
             className="rounded-2xl overflow-hidden gradient-border-spin"
           >
             <div className="bg-surface-light rounded-2xl overflow-hidden">
-              {/* Dashboard header */}
               <div className="px-5 py-4 border-b border-white/5 flex items-center gap-3">
                 <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-primary to-blue-600 flex items-center justify-center">
                   <Bot className="w-5 h-5 text-white" />
@@ -206,7 +296,6 @@ export default function ChatDemo() {
                 </div>
               </div>
 
-              {/* Mini stats */}
               <div className="grid grid-cols-3 gap-3 p-4">
                 {[
                   { label: "Active Chats", value: "3", gradient: "from-primary/20 to-primary/5", valueColor: "text-purple-300" },
@@ -227,7 +316,6 @@ export default function ChatDemo() {
                 ))}
               </div>
 
-              {/* Activity feed */}
               <div className="px-4 pb-4">
                 <p className="text-[10px] text-text-muted uppercase tracking-[0.15em] mb-3 font-bold">Live Activity</p>
                 <div className="space-y-2.5 min-h-[280px]">
