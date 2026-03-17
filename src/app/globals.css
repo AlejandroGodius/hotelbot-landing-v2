@@ -139,7 +139,7 @@ body {
   opacity: 0.6;
 }
 
-/* ===== GODIUS LOGO ===== */
+/* ===== GODIUS LOGO (legacy) ===== */
 .godius-logo {
   position: relative;
   display: inline-block;
@@ -154,6 +154,24 @@ body {
 @keyframes logo-shimmer {
   0%, 100% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
+}
+
+/* ===== GODIUS WORDMARK (new) ===== */
+.godius-wordmark {
+  position: relative;
+  display: inline-block;
+  background: linear-gradient(135deg, #ffffff 0%, #e2d9f3 20%, #a78bfa 45%, #7c3aed 60%, #3b82f6 80%, #06b6d4 100%);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: wordmark-flow 6s ease infinite;
+  filter: drop-shadow(0 0 20px rgba(124, 58, 237, 0.25));
+}
+@keyframes wordmark-flow {
+  0%, 100% { background-position: 0% 50%; }
+  33% { background-position: 100% 50%; }
+  66% { background-position: 50% 100%; }
 }
 
 /* ===== SCROLLBAR ===== */
