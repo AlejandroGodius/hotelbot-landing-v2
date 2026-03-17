@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
-import { ArrowRight, Play, Zap, Heart, TrendingUp, Sparkles } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ArrowRight, Play, Zap, Heart, TrendingUp, Sparkles, Hotel } from "lucide-react";
 import { useLanguage } from "./LanguageProvider";
 
 function TypewriterText({ texts }: { texts: string[] }) {
@@ -36,8 +36,43 @@ function TypewriterText({ texts }: { texts: string[] }) {
   );
 }
 
+function BadgeRotator({ badges }: { badges: { icon: React.ElementType; text: string }[] }) {
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIndex((i) => (i + 1) % badges.length);
+    }, 3500);
+    return () => clearInterval(interval);
+  }, [badges.length]);
+
+  const current = badges[index];
+
+  return (
+    <AnimatePresence mode="wait">
+      <motion.div
+        key={index}
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -10 }}
+        transition={{ duration: 0.3 }}
+        className="inline-flex items-center gap-2"
+      >
+        <current.icon className="w-4 h-4 text-primary-light" />
+        <span className="text-sm font-medium text-white/80">{current.text}</span>
+        <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+      </motion.div>
+    </AnimatePresence>
+  );
+}
+
 export default function Hero() {
   const { t } = useLanguage();
+
+  const heroBadges = [
+    { icon: Sparkles, text: t("hero.badge") },
+    { icon: Hotel, text: t("hero.badge2") },
+  ];
 
   const rotatingTexts = [
     t("hero.title.line2"),
@@ -72,11 +107,9 @@ export default function Hero() {
             initial={{ opacity: 0, y: 30, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.7, type: "spring" }}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full glass mb-10 gradient-border-spin"
+            className="inline-flex items-center px-5 py-2.5 rounded-full glass mb-10 gradient-border-spin min-h-[44px]"
           >
-            <Sparkles className="w-4 h-4 text-primary-light" />
-            <span className="text-sm font-medium text-white/80">{t("hero.badge")}</span>
-            <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+            <BadgeRotator badges={heroBadges} />
           </motion.div>
 
           {/* Heading with typewriter */}

@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import { useLanguage } from "./LanguageProvider";
 
-const faqKeys = ["q1", "q2", "q3", "q4", "q5", "q6"];
+const faqKeys = ["q1", "q2", "q3", "q4", "q5", "q6", "q7"];
 
 export default function FAQ() {
   const { t } = useLanguage();

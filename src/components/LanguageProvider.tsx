@@ -27,33 +27,32 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
 
 export const useLanguage = () => useContext(LanguageContext);
 
-const langButtons: Record<Locale, { label: string; bg: string; text: string }> = {
-  en: { label: "EN", bg: "#1e40af", text: "#ffffff" },
-  es: { label: "ES", bg: "#dc2626", text: "#ffffff" },
-  fr: { label: "FR", bg: "#1e3a8a", text: "#ffffff" },
-  de: { label: "DE", bg: "#1f2937", text: "#fbbf24" },
+const langFlags: Record<Locale, { flag: string; label: string }> = {
+  en: { flag: "\u{1F1EC}\u{1F1E7}", label: "English" },
+  es: { flag: "\u{1F1EA}\u{1F1F8}", label: "Espa\u00f1ol" },
+  fr: { flag: "\u{1F1EB}\u{1F1F7}", label: "Fran\u00e7ais" },
+  de: { flag: "\u{1F1E9}\u{1F1EA}", label: "Deutsch" },
 };
 
 export function LanguageSwitcher() {
   const { locale, setLocale } = useLanguage();
   return (
-    <div className="flex gap-1">
-      {(Object.keys(langButtons) as Locale[]).map((lang) => {
-        const btn = langButtons[lang];
+    <div className="flex gap-1.5">
+      {(Object.keys(langFlags) as Locale[]).map((lang) => {
+        const { flag, label } = langFlags[lang];
         const isActive = locale === lang;
         return (
           <button
             key={lang}
             onClick={() => setLocale(lang)}
-            className={`w-8 h-8 rounded-full flex items-center justify-center text-[10px] font-bold tracking-wide transition-all duration-200 ${
+            className={`w-8 h-8 rounded-full flex items-center justify-center text-lg transition-all duration-200 ${
               isActive
-                ? "ring-2 ring-white/40 scale-110"
-                : "opacity-60 hover:opacity-90 hover:scale-105"
+                ? "ring-2 ring-white/40 scale-110 bg-white/10"
+                : "opacity-50 hover:opacity-90 hover:scale-105 hover:bg-white/5"
             }`}
-            style={{ backgroundColor: btn.bg, color: btn.text }}
-            title={lang.toUpperCase()}
+            title={label}
           >
-            {btn.label}
+            {flag}
           </button>
         );
       })}
