@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Bot, User, CheckCircle2, DollarSign, Car, Sparkles, Wifi } from "lucide-react";
 import { useLanguage } from "./LanguageProvider";
 
-type Message = { id: number; type: "guest" | "bot"; text: string; typing?: boolean };
+type Message = { id: number; type: "guest" | "bot"; text: string; typing?: boolean; label?: string };
 type Notification = { id: number; icon: typeof CheckCircle2; title: string; detail: string; color: string };
 
 export default function ChatDemo() {
@@ -28,15 +28,15 @@ export default function ChatDemo() {
   useEffect(() => {
     if (!isVisible) return;
 
-    const addMsg = (type: "guest" | "bot", text: string, typing = false) =>
-      setMessages((prev) => [...prev, { id: Date.now() + Math.random(), type, text, typing }]);
+    const addMsg = (type: "guest" | "bot", text: string, typing = false, label?: string) =>
+      setMessages((prev) => [...prev, { id: Date.now() + Math.random(), type, text, typing, label }]);
 
-    const replaceBot = (text: string) =>
+    const replaceBot = (text: string, label?: string) =>
       setMessages((prev) => {
         const idx = prev.findLastIndex((m) => m.type === "bot");
         if (idx === -1) return prev;
         const u = [...prev];
-        u[idx] = { ...u[idx], text, typing: false };
+        u[idx] = { ...u[idx], text, typing: false, ...(label ? { label } : {}) };
         return u;
       });
 
@@ -45,14 +45,14 @@ export default function ChatDemo() {
 
     const seq = [
       { d: 600, fn: () => addMsg("guest", t("demo.msg.guest1")) },
-      { d: 1800, fn: () => addMsg("bot", "", true) },
-      { d: 3200, fn: () => replaceBot(t("demo.msg.bot1")) },
+      { d: 1800, fn: () => addMsg("bot", "", true, "AI Reception") },
+      { d: 3200, fn: () => replaceBot(t("demo.msg.bot1"), "AI Reception") },
       { d: 5200, fn: () => addMsg("guest", t("demo.msg.guest2")) },
-      { d: 6400, fn: () => addMsg("bot", "", true) },
-      { d: 8200, fn: () => replaceBot(t("demo.msg.bot2")) },
+      { d: 6400, fn: () => addMsg("bot", "", true, "AI Concierge") },
+      { d: 8200, fn: () => replaceBot(t("demo.msg.bot2"), "AI Concierge") },
       { d: 10500, fn: () => addMsg("guest", t("demo.msg.guest3")) },
-      { d: 11500, fn: () => addMsg("bot", "", true) },
-      { d: 13000, fn: () => { replaceBot(t("demo.msg.bot3")); addNotif(CheckCircle2, t("demo.staff.notif1"), t("demo.staff.notif1.detail"), "text-green-400"); } },
+      { d: 11500, fn: () => addMsg("bot", "", true, "AI Concierge") },
+      { d: 13000, fn: () => { replaceBot(t("demo.msg.bot3"), "AI Concierge"); addNotif(CheckCircle2, t("demo.staff.notif1"), t("demo.staff.notif1.detail"), "text-green-400"); } },
       { d: 14500, fn: () => addNotif(Car, t("demo.staff.notif2"), t("demo.staff.notif2.detail"), "text-blue-400") },
       { d: 16000, fn: () => addNotif(DollarSign, t("demo.staff.notif3"), t("demo.staff.notif3.detail"), "text-amber-400") },
     ];
@@ -112,7 +112,7 @@ export default function ChatDemo() {
                     <Bot className="w-5 h-5 text-white" />
                   </div>
                   <div className="flex-1">
-                    <p className="text-sm font-semibold text-white">HotelBot AI</p>
+                    <p className="text-sm font-semibold text-white">Godius AI</p>
                     <div className="flex items-center gap-1">
                       <Wifi className="w-3 h-3 text-green-400" />
                       <p className="text-[10px] text-green-400">online</p>
@@ -148,8 +148,8 @@ export default function ChatDemo() {
                             <>
                               {msg.type === "bot" && (
                                 <div className="flex items-center gap-1.5 mb-1.5">
-                                  <Sparkles className="w-3 h-3 text-primary-light" />
-                                  <span className="text-[10px] font-bold text-primary-light uppercase tracking-wider">AI Concierge</span>
+                                  <Sparkles className={`w-3 h-3 ${msg.label === "AI Reception" ? "text-amber-400" : "text-primary-light"}`} />
+                                  <span className={`text-[10px] font-bold uppercase tracking-wider ${msg.label === "AI Reception" ? "text-amber-400" : "text-primary-light"}`}>{msg.label || "AI Concierge"}</span>
                                 </div>
                               )}
                               {msg.text}
@@ -198,7 +198,7 @@ export default function ChatDemo() {
                 </div>
                 <div>
                   <p className="font-bold text-white text-sm">{t("demo.staff.title")}</p>
-                  <p className="text-[10px] text-text-muted">HotelBot Pro</p>
+                  <p className="text-[10px] text-text-muted">Godius Pro</p>
                 </div>
                 <div className="ml-auto flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />

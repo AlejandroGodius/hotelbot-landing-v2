@@ -40,7 +40,7 @@ export default function CTA() {
           </p>
 
           <motion.a
-            href="https://hotelbot-six.vercel.app/get-started"
+            href="/get-started/free"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="group glow-button inline-flex items-center gap-3 px-12 py-6 text-xl font-black rounded-full bg-gradient-to-r from-primary via-blue-600 to-accent text-white shadow-2xl shadow-primary/25 transition-all"

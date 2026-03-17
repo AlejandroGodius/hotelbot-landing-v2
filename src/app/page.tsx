@@ -13,6 +13,8 @@ import Network from "@/components/Network";
 import Impact from "@/components/Impact";
 import Pricing from "@/components/Pricing";
 import FAQ from "@/components/FAQ";
+import HowItWorks from "@/components/HowItWorks";
+import ProSystem from "@/components/ProSystem";
 import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
 
@@ -28,8 +30,10 @@ export default function Home() {
           <Hero />
           <ChatDemo />
           <Features />
-          <Agents />
+          <HowItWorks />
           <Network />
+          <Agents />
+          <ProSystem />
           <Impact />
           <Pricing />
           <FAQ />

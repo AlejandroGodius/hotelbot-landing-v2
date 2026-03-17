@@ -16,7 +16,7 @@ export default function Footer() {
               <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center">
                 <Bot className="w-5 h-5 text-white" />
               </div>
-              <span className="text-lg font-bold text-white">HotelBot</span>
+              <span className="text-lg font-bold text-white">Godius</span>
             </div>
             <p className="text-sm text-text-muted">{t("footer.tagline")}</p>
           </div>

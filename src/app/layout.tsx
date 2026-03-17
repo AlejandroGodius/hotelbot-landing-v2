@@ -2,22 +2,23 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "HotelBot — WhatsApp AI Assistant for Hotels & Villas",
+  title: "Godius — AI Copilot for Hotels & Villas",
   description:
-    "Paste your Booking.com URL. In 5 minutes, get a WhatsApp AI assistant that answers guests 24/7, books experiences, and generates revenue. 6 AI agents, affiliate commissions, smart campaigns.",
+    "Your guests book experiences, get answers, and love their stay — all through WhatsApp. Free concierge for your property. Earn commissions on every booking via Viator.",
   keywords: [
-    "hotel chatbot",
+    "hotel AI concierge",
     "WhatsApp hotel bot",
     "AI hotel assistant",
     "villa management",
-    "guest experience automation",
-    "hotel AI",
+    "guest experience booking",
+    "Viator hotel integration",
     "WhatsApp business hotel",
+    "hotel copilot",
   ],
   openGraph: {
-    title: "HotelBot — WhatsApp AI Assistant for Hotels & Villas",
+    title: "Godius — AI Copilot for Hotels & Villas",
     description:
-      "Paste your URL, get a WhatsApp AI assistant in 5 minutes. 6 AI agents, experience booking, affiliate revenue, smart campaigns.",
+      "Free AI concierge for your property. Guests book experiences via WhatsApp, you earn commissions. Upgrade to Pro for full hotel operations.",
     type: "website",
   },
 };

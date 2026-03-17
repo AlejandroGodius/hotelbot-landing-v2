@@ -1,14 +1,14 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRightLeft, Compass, Car, Utensils, Plane, Sparkles } from "lucide-react";
+import { ArrowRightLeft, Map, Clock, ShoppingBag, Globe, Sparkles } from "lucide-react";
 import { useLanguage } from "./LanguageProvider";
 
 const cards = [
-  { key: "card1", icon: Compass, gradient: "from-orange-500 to-amber-400", glow: "rgba(245,158,11,0.2)" },
-  { key: "card2", icon: Car, gradient: "from-blue-500 to-cyan-400", glow: "rgba(59,130,246,0.2)" },
-  { key: "card3", icon: Utensils, gradient: "from-rose-500 to-pink-400", glow: "rgba(244,63,94,0.2)" },
-  { key: "card4", icon: Plane, gradient: "from-emerald-500 to-green-400", glow: "rgba(34,197,94,0.2)" },
+  { key: "card1", icon: Map, gradient: "from-orange-500 to-amber-400", glow: "rgba(245,158,11,0.2)" },
+  { key: "card2", icon: Clock, gradient: "from-blue-500 to-cyan-400", glow: "rgba(59,130,246,0.2)" },
+  { key: "card3", icon: ShoppingBag, gradient: "from-rose-500 to-pink-400", glow: "rgba(244,63,94,0.2)" },
+  { key: "card4", icon: Globe, gradient: "from-emerald-500 to-green-400", glow: "rgba(34,197,94,0.2)" },
 ];
 
 export default function Network() {

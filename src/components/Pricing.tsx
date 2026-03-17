@@ -5,9 +5,8 @@ import { Check, Sparkles } from "lucide-react";
 import { useLanguage } from "./LanguageProvider";
 
 const plans = [
-  { key: "sandbox", features: 4, highlighted: false },
-  { key: "starter", features: 5, highlighted: true },
-  { key: "pro", features: 6, highlighted: false },
+  { key: "free", features: 5, highlighted: false },
+  { key: "pro", features: 8, highlighted: true },
 ];
 
 export default function Pricing() {
@@ -40,19 +39,19 @@ export default function Pricing() {
           <p className="text-lg text-text-muted max-w-2xl mx-auto">{t("pricing.subtitle")}</p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-3 gap-6 max-w-5xl mx-auto items-center">
+        <div className="grid lg:grid-cols-2 gap-8 max-w-4xl mx-auto items-stretch">
           {plans.map((plan, i) => (
             <motion.div
               key={plan.key}
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.1, type: "spring" }}
+              transition={{ delay: i * 0.15, type: "spring" }}
               whileHover={{ y: -10 }}
               className={`relative rounded-2xl p-8 transition-all duration-300 ${
                 plan.highlighted
-                  ? "bg-gradient-to-b from-primary/15 to-surface-light scale-[1.05] gradient-border-spin z-10"
-                  : "bg-surface-light/60 border border-white/5 hover:border-white/15"
+                  ? "bg-gradient-to-b from-primary/15 to-surface-light gradient-border-spin"
+                  : "bg-gradient-to-b from-orange-500/15 to-surface-light gradient-border-spin"
               }`}
             >
               {plan.highlighted && (
@@ -63,7 +62,7 @@ export default function Pricing() {
                 >
                   <span className="inline-flex items-center gap-1.5 px-4 py-1.5 text-xs font-bold rounded-full bg-gradient-to-r from-primary to-accent text-white shadow-lg shadow-primary/30">
                     <Sparkles className="w-3 h-3" />
-                    {t("pricing.starter.badge")}
+                    {t("pricing.pro.badge")}
                   </span>
                 </motion.div>
               )}
@@ -72,7 +71,7 @@ export default function Pricing() {
                 <h3 className="text-xl font-bold text-white mb-2">{t(`pricing.${plan.key}.name`)}</h3>
                 <p className="text-sm text-text-muted mb-5">{t(`pricing.${plan.key}.desc`)}</p>
                 <div className="flex items-baseline gap-1">
-                  <span className={`text-5xl font-black ${plan.highlighted ? "gradient-text" : "text-white"}`}>
+                  <span className={`text-5xl font-black ${plan.highlighted ? "gradient-text" : "text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-amber-300"}`}>
                     {t(`pricing.${plan.key}.price`)}
                   </span>
                   <span className="text-text-muted text-lg">{t(`pricing.${plan.key}.period`)}</span>
@@ -83,9 +82,9 @@ export default function Pricing() {
                 {Array.from({ length: plan.features }, (_, j) => (
                   <li key={j} className="flex items-start gap-3">
                     <div className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 mt-0.5 ${
-                      plan.highlighted ? "bg-primary/20" : "bg-white/5"
+                      plan.highlighted ? "bg-primary/20" : "bg-orange-500/20"
                     }`}>
-                      <Check className={`w-3 h-3 ${plan.highlighted ? "text-primary-light" : "text-accent"}`} />
+                      <Check className={`w-3 h-3 ${plan.highlighted ? "text-primary-light" : "text-orange-400"}`} />
                     </div>
                     <span className="text-sm text-white/80">{t(`pricing.${plan.key}.f${j + 1}`)}</span>
                   </li>
@@ -93,16 +92,14 @@ export default function Pricing() {
               </ul>
 
               <a
-                href="https://hotelbot-six.vercel.app/get-started"
+                href={plan.key === "free" ? "/get-started/free" : "https://hotelbot-six.vercel.app/get-started"}
                 className={`block w-full text-center py-4 rounded-full font-bold text-sm transition-all duration-300 ${
                   plan.highlighted
                     ? "glow-button bg-gradient-to-r from-primary via-blue-600 to-accent text-white hover:scale-105"
-                    : plan.key === "sandbox"
-                    ? "bg-white/5 text-white hover:bg-white/10 border border-white/10"
-                    : "glass text-white hover:bg-white/8"
+                    : "glow-button bg-gradient-to-r from-orange-500 via-amber-500 to-orange-400 text-white hover:scale-105"
                 }`}
               >
-                {plan.key === "sandbox" ? t("pricing.cta.sandbox") : t("pricing.cta")}
+                {plan.key === "free" ? t("pricing.cta.free") : t("pricing.cta")}
               </a>
             </motion.div>
           ))}
