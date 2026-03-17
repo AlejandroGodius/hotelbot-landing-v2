@@ -43,7 +43,7 @@ export default function Navbar() {
           <div className="hidden md:flex items-center gap-4">
             <LanguageSwitcher />
             <a
-              href="#pricing"
+              href="https://hotelbot-six.vercel.app/get-started"
               className="px-5 py-2 text-sm font-semibold rounded-full bg-gradient-to-r from-primary to-accent text-white hover:opacity-90 transition-opacity"
             >
               {t("nav.cta")}
@@ -81,7 +81,7 @@ export default function Navbar() {
               <div className="pt-3 border-t border-white/10 flex items-center justify-between">
                 <LanguageSwitcher />
                 <a
-                  href="#pricing"
+                  href="https://hotelbot-six.vercel.app/get-started"
                   className="px-5 py-2 text-sm font-semibold rounded-full bg-gradient-to-r from-primary to-accent text-white"
                 >
                   {t("nav.cta")}

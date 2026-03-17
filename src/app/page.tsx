@@ -9,6 +9,7 @@ import Hero from "@/components/Hero";
 import ChatDemo from "@/components/ChatDemo";
 import Agents from "@/components/Agents";
 import Features from "@/components/Features";
+import Network from "@/components/Network";
 import Impact from "@/components/Impact";
 import Pricing from "@/components/Pricing";
 import FAQ from "@/components/FAQ";
@@ -28,6 +29,7 @@ export default function Home() {
           <ChatDemo />
           <Features />
           <Agents />
+          <Network />
           <Impact />
           <Pricing />
           <FAQ />

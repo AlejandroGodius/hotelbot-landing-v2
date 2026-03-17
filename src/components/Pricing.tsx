@@ -5,9 +5,9 @@ import { Check, Sparkles } from "lucide-react";
 import { useLanguage } from "./LanguageProvider";
 
 const plans = [
-  { key: "starter", features: 5, highlighted: false },
-  { key: "pro", features: 7, highlighted: true },
-  { key: "enterprise", features: 7, highlighted: false },
+  { key: "sandbox", features: 4, highlighted: false },
+  { key: "starter", features: 5, highlighted: true },
+  { key: "pro", features: 6, highlighted: false },
 ];
 
 export default function Pricing() {
@@ -63,7 +63,7 @@ export default function Pricing() {
                 >
                   <span className="inline-flex items-center gap-1.5 px-4 py-1.5 text-xs font-bold rounded-full bg-gradient-to-r from-primary to-accent text-white shadow-lg shadow-primary/30">
                     <Sparkles className="w-3 h-3" />
-                    {t("pricing.pro.badge")}
+                    {t("pricing.starter.badge")}
                   </span>
                 </motion.div>
               )}
@@ -93,16 +93,16 @@ export default function Pricing() {
               </ul>
 
               <a
-                href="#"
+                href="https://hotelbot-six.vercel.app/get-started"
                 className={`block w-full text-center py-4 rounded-full font-bold text-sm transition-all duration-300 ${
                   plan.highlighted
                     ? "glow-button bg-gradient-to-r from-primary via-blue-600 to-accent text-white hover:scale-105"
-                    : plan.key === "enterprise"
-                    ? "glass text-white hover:bg-white/8"
-                    : "bg-white/5 text-white hover:bg-white/10 border border-white/10"
+                    : plan.key === "sandbox"
+                    ? "bg-white/5 text-white hover:bg-white/10 border border-white/10"
+                    : "glass text-white hover:bg-white/8"
                 }`}
               >
-                {plan.key === "enterprise" ? t("pricing.cta.enterprise") : t("pricing.cta")}
+                {plan.key === "sandbox" ? t("pricing.cta.sandbox") : t("pricing.cta")}
               </a>
             </motion.div>
           ))}

@@ -43,7 +43,7 @@ export default function Hero() {
     t("hero.title.line2"),
     "Revenue While You Sleep",
     "5-Star Reviews, Automated",
-    "Zero Wait Times, Ever",
+    "Setup in 5 Minutes",
   ];
 
   const stats = [
@@ -112,7 +112,7 @@ export default function Hero() {
             className="flex flex-col sm:flex-row gap-4 justify-center mb-20"
           >
             <a
-              href="#pricing"
+              href="https://hotelbot-six.vercel.app/get-started"
               className="group glow-button inline-flex items-center justify-center gap-3 px-10 py-5 text-lg font-bold rounded-full bg-gradient-to-r from-primary via-blue-600 to-accent text-white transition-all duration-300 hover:scale-105 active:scale-95"
             >
               {t("hero.cta.primary")}

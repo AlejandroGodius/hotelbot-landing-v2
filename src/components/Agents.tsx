@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { Headphones, Globe, Bed, Wrench, TrendingUp } from "lucide-react";
+import { Headphones, Globe, Bed, Wrench, TrendingUp, Megaphone } from "lucide-react";
 import { useLanguage } from "./LanguageProvider";
 
 const agentData = [
@@ -11,6 +11,7 @@ const agentData = [
   { key: "housekeeping", icon: Bed, gradient: "from-green-500 to-emerald-400", glow: "rgba(34,197,94,0.3)" },
   { key: "maintenance", icon: Wrench, gradient: "from-amber-500 to-orange-400", glow: "rgba(245,158,11,0.3)" },
   { key: "upselling", icon: TrendingUp, gradient: "from-rose-500 to-red-400", glow: "rgba(244,63,94,0.3)" },
+  { key: "campaigns", icon: Megaphone, gradient: "from-indigo-500 to-violet-400", glow: "rgba(99,102,241,0.3)" },
 ];
 
 function TiltCard({ children, glow }: { children: React.ReactNode; glow: string }) {
@@ -71,7 +72,7 @@ export default function Agents() {
           <p className="text-lg text-text-muted max-w-2xl mx-auto">{t("agents.subtitle")}</p>
         </motion.div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-6" style={{ perspective: "1000px" }}>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6" style={{ perspective: "1000px" }}>
           {agentData.map((agent, i) => (
             <motion.div
               key={agent.key}
